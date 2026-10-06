@@ -1,7 +1,5 @@
-import java.util.ArrayList;
-import java.util.List;
-
 import java.util.StringTokenizer;
+
 import java.io.BufferedReader;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
@@ -68,52 +66,80 @@ class Kattio extends PrintWriter {
     }
 }
 
-public class sortofsorting {
+public class planetaris {
+    private static Comparable[] aux;
 
     public static void main(String[] args) {
+        int counter = 0;
         Kattio io = new Kattio(System.in, System.out);
-        int n = -1;
+        int solarsystems = io.getInt();
+        int atliships = io.getInt();
 
-        while (true) {
-            n = io.getInt();
-            if (n == 0) {
-                break;
-            }
-            List<String> names = new ArrayList<>();
-            for (int k = 0; k < n; k++) {
-                String name = io.getWord();
-                names.add(name);
-            }
+        Integer[] finniships = new Integer[solarsystems];
 
-            // Algs4 code expects an array
-            String[] a = names.toArray(new String[0]);
-
-            int s = a.length;
-            for (int i = 1; i < s; i++) {
-                // Insert a[i] among a[i-1], a[i-2]....
-                for (int j = i; j > 0 && less(a[j], a[j - 1]); j--) {
-                    exch(a, j, j - 1);
-                }
-            }
-
-            for (int h = 0; h < s; h++) {
-                io.println(a[h]);
-            }
-
+        for (int i = 0; i < solarsystems; i++) {
+            finniships[i] = io.getInt();
         }
+
+        // insertion(finniships);
+        mergeSort(finniships);
+        for (int i = 0; i < solarsystems; i++) {
+            if (atliships > finniships[i]) {
+                atliships -= finniships[i] + 1;
+                counter += 1;
+            }
+        }
+        io.println(counter);
         io.close();
     }
 
-    private static void exch(Comparable[] a, int k, int j) {
-        Comparable t = a[k];
-        a[k] = a[j];
-        a[j] = t;
+    private static void mergeSort(Comparable[] a) {
+        int N = a.length;
+        aux = new Comparable[N];
+        for (int sz = 1; sz < N; sz = sz + sz) {
+            for (int lo = 0; lo < N - sz; lo += sz + sz) {
+                merge(a, lo, lo + sz - 1, Math.min(lo + sz + sz - 1, N - 1));
+            }
+        }
     }
 
-    // Modified less method to return true if the first two characters in String v
-    // are less than
-    // the first two character in String w.
-    private static boolean less(String v, String w) {
-        return v.substring(0, 2).compareTo(w.substring(0, 2)) < 0;
+    private static void merge(Comparable[] a, int lo, int mid, int hi) {
+        int i = lo, j = mid + 1;
+
+        for (int k = lo; k <= hi; k++) {
+            aux[k] = a[k];
+        }
+        for (int k = lo; k <= hi; k++) {
+            if (i > mid) {
+                a[k] = aux[j++];
+            } else if (j > hi) {
+                a[k] = aux[i++];
+            } else if (less(aux[j], aux[i])) {
+                a[k] = aux[j++];
+            } else {
+                a[k] = aux[i++];
+            }
+
+        }
     }
+
+    private static boolean less(Comparable a, Comparable b) {
+        return a.compareTo(b) < 0;
+    }
+
 }
+
+// private static void insertion(int[] a) {
+// int N = a.length;
+// for (int i = 1; i < N; i++) {
+// for (int j = i; j > 0 && less(a[j], a[j - 1]); j--) {
+// exch(a, j, j - 1);
+// }
+// }
+// }
+
+// private static void exch(int[] a, int i, int j) {
+// int t = a[i];
+// a[i] = a[j];
+// a[j] = t;
+// }
