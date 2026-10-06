@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import java.util.StringTokenizer;
 import java.io.BufferedReader;
@@ -69,41 +68,56 @@ class Kattio extends PrintWriter {
     }
 }
 
+public class sortofsorting {
 
-public class haefileikalausirstokkar {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Kattio io = new Kattio(System.in, System.out);
+        int n = -1;
 
-        int n = scanner.nextInt();
-        scanner.nextLine();
-        List<String> no_skill = getLines(scanner, n);
+        while (true) {
+            n = io.getInt();
+            if (n == 0) {
+                break;
+            }
+            List<String> names = new ArrayList<>();
+            for (int k = 0; k < n; k++) {
+                String name = io.getWord();
+                names.add(name);
+            }
 
-        int k = scanner.nextInt();
-        scanner.nextLine();
+            // Algs4 code expects an array
+            String[] a = names.toArray(new String[0]);
 
-        for (int j = 0; j < k; j++) {
-            boolean skilled = true;
-            List<String> deck = getLines(scanner, 6);
-            for (int l = 0; l < no_skill.size(); l++) {
-                if (deck.contains(no_skill.get(l))) {
-                    System.out.println("Hæfileikalaust Drasl");
-                    skilled = false;
-                    break;
+            int s = a.length;
+            for (int i = 1; i < s; i++) {
+                // Insert a[i] among a[i-1], a[i-2]....
+                for (int j = i; j > 0 && less(a[j], a[j - 1]); j--) {
+                    exch(a, j, j - 1);
                 }
             }
-            if (skilled) {
-                System.out.println("Fínn Stokkur");
+
+            for (int h = 0; h < s; h++) {
+                io.println(a[h]);
             }
+
         }
+        io.close();
     }
 
-    public static List<String> getLines(Scanner scanner, int n) {
-        List<String> items = new ArrayList<>();
+    static List<String> kindaSort(List<String> l) {
+        return l;
+    }
 
-        for (int i = 0; i < n; i++) {
-            String line = scanner.nextLine();
-            items.add(line);
-        }
-        return items;
+    private static void exch(Comparable[] a, int k, int j) {
+        Comparable t = a[k];
+        a[k] = a[j];
+        a[j] = t;
+    }
+
+    // Modified less method to return true if the first two characters in String v
+    // are less than
+    // the first two character in String w.
+    private static boolean less(String v, String w) {
+        return v.substring(0, 2).compareTo(w.substring(0, 2)) < 0;
     }
 }
