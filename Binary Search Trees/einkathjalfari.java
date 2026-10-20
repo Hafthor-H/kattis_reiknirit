@@ -68,6 +68,33 @@ class Kattio extends PrintWriter {
 }
 
 public class einkathjalfari {
-    RedBlackBST<String, Integer> st = new RedBlackBST<>();
+    public static void main(String[] args) {
+        RedBlackBST<Integer, Integer> rBst = new RedBlackBST<>();
+        Kattio io = new Kattio(System.in, System.out);
 
+        int q = io.getInt();
+
+        for (int i = 0; i < q; i++) {
+            String command = io.getWord();
+
+            if (command.equals("A")) {
+                int time = io.getInt();
+                rBst.put(time, 1);
+            } else if (command.equals("D")) {
+                int time = io.getInt();
+                if (rBst.contains((time))) {
+                    rBst.delete(time);
+                }
+            } else {
+                int start = io.getInt();
+                int end = io.getInt();
+                int total = end - start + 1;
+                int booked = rBst.size(start, end);
+
+                io.println(total - booked);
+                io.flush();
+
+            }
+        }
+    }
 }
