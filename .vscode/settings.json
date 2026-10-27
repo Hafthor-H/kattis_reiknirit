@@ -1,10 +1,11 @@
 {
     "java.debug.settings.onBuildFailureProceed": true,
     "java.project.sourcePaths": [
-        "Binary Search Trees",
-        "Java Intro",
+        "Sorting 2",
         "Sorting 1",
-        "Sorting 2"
+        "Java Intro",
+        "Binary Search Trees",
+        "Graph Search"
     ],
     "java.project.referencedLibraries": [
         "c:\\Users\\Lenovo\\Desktop\\Haust 26\\Reiknirit\\kattis\\lib\\algs4.jar"
