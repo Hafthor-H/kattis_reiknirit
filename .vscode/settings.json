@@ -4,8 +4,9 @@
         "Sorting 2",
         "Sorting 1",
         "Java Intro",
+        "Graph Search",
         "Binary Search Trees",
-        "Graph Search"
+        "Weighted and or directed graphs"
     ],
     "java.project.referencedLibraries": [
         "c:\\Users\\Lenovo\\Desktop\\Haust 26\\Reiknirit\\kattis\\lib\\algs4.jar"
